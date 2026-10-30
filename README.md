@@ -1,82 +1,116 @@
-<h1>ExpNo 8 : Solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python</h1> 
-<h3>Name:               </h3>
-<h3>Register Number/Staff Id:       </h3>
-<H3>Aim:</H3>
-<p>
-    To solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
-</p>
-<h3>Procedure:</h3>
+## ExpNo 8 : Solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
+## Name: ASWIKA B
+## Register Number: 212224220013
+## Aim:
+To solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
+
+## Procedure:
 Input and Output
-<br>Input:
-This algorithm will take three words.
-<br> B A S E<br>
-    B A L L<br>
-           ----------<br>
-           G A M E S<br>
+Input: This algorithm will take three words.
+B A S E
+B A L L
+----------
+G A M E S
+Output: It will show which letter holds which number from 0 – 9. For this case it is like this.
+```
+          B A S E                         2 4 6 1
+          B A L L                         2 4 5 5
+         ---------                       ---------
+        G A M E S                       0 4 9 1 6
+```
+Algorithm For this problem, we will define a node, which contains a letter and its corresponding values.
 
-Output:
-It will show which letter holds which number from 0 – 9.
-For this case it is like this.
+isValid(nodeList, count, word1, word2, word3)
 
-              B A S E                         2 4 6 1
-              B A L L                         2 4 5 5
-             ---------                       ---------
-            G A M E S                       0 4 9 1 6
-Algorithm
-For this problem, we will define a node, which contains a letter and its corresponding values.<br>
+Input − A list of nodes, the number of elements in the node list and three words.
 
-isValid(nodeList, count, word1, word2, word3)<br>
+Output − True if the sum of the value for word1 and word2 is same as word3 value.
 
-Input − A list of nodes, the number of elements in the node list and three words.<br>
+Begin
+m := 1
+for each letter i from right to left of word1, do
+ch := word1[i]
+for all elements j in the nodeList, do
+if nodeList[j].letter = ch, then
+break
+done
+val1 := val1 + (m * nodeList[j].value)
+m := m * 10
+done
 
-Output − True if the sum of the value for word1 and word2 is same as word3 value.<br>
+m := 1
+for each letter i from right to left of word2, do
+ch := word2[i]
+for all elements j in the nodeList, do
+if nodeList[j].letter = ch, then
+break
+done
+```
+  val2 := val2 + (m * nodeList[j].value)
+  m := m * 10
+```
+done
 
-Begin<br>
-   m := 1<br>
-   for each letter i from right to left of word1, do<br>
-      ch := word1[i]<br>
-      for all elements j in the nodeList, do<br>
-         if nodeList[j].letter = ch, then<br>
-            break<br>
-      done<br>
-      val1 := val1 + (m * nodeList[j].value)<br>
-      m := m * 10<br>
-   done<br>
+m := 1
+for each letter i from right to left of word3, do
+ch := word3[i]
+for all elements j in the nodeList, do
+if nodeList[j].letter = ch, then
+break
+done
+```
+  val3 := val3 + (m * nodeList[j].value)
+  m := m * 10
+```
+done
 
-   m := 1<br>
-   for each letter i from right to left of word2, do<br>
-      ch := word2[i]<br>
-      for all elements j in the nodeList, do<br>
-         if nodeList[j].letter = ch, then<br>
-            break<br>
-      done<br>
+if val3 = (val1 + val2), then
+return true
+return false
+End
 
-      val2 := val2 + (m * nodeList[j].value)
-      m := m * 10
-   done<br>
+## Sample Input and Output:
+```
+SEND = 9567
+MORE = 1085
+```
+MONEY = 10652
 
-   m := 1<br>
-   for each letter i from right to left of word3, do<br>
-      ch := word3[i]<br>
-      for all elements j in the nodeList, do<br>
-         if nodeList[j].letter = ch, then<br>
-            break<br>
-      done<br>
+## Program :
+```
+from itertools import permutations
 
-      val3 := val3 + (m * nodeList[j].value)
-      m := m * 10
-   done<br>
+def solve_cryptarithmetic():
+    for perm in permutations(range(10), 8):
+        S, E, N, D, M, O, R, Y = perm
 
-   if val3 = (val1 + val2), then<br>
-      return true<br>
-   return false<br>
-End<br>
-<hr>
-<h2>Sample Input and Output:</h2>
-SEND = 9567<br>
-MORE = 1085<br>
-<hr>
-MONEY = 10652<br>
-<hr>
-<h2>Result:</h2>
-<p> Thus a Cryptarithmetic Problem was solved using Python successfully</p>
+        # Check for leading zeros
+        if S == 0 or M == 0:
+            continue
+
+        # Check the equation constraints
+        SEND = 1000 * S + 100 * E + 10 * N + D
+        MORE = 1000 * M + 100 * O + 10 * R + E
+        MONEY = 10000 * M + 1000 * O + 100 * N + 10 * E + Y
+
+        if SEND + MORE == MONEY:
+            return SEND, MORE, MONEY
+
+    return None
+
+# Call the function
+solution = solve_cryptarithmetic()
+
+if solution:
+    SEND, MORE, MONEY = solution
+    print(f'SEND = {SEND}')
+    print(f'MORE = {MORE}')
+    print(f'MONEY = {MONEY}')
+else:
+    print("No solution found.")
+```
+## Output:
+<img width="980" height="506" alt="image" src="https://github.com/user-attachments/assets/a41a2484-39fc-43aa-89fa-28fd4bdfceac" />
+
+## Result:
+Thus a Cryptarithmetic Problem was solved using Python successfully.
